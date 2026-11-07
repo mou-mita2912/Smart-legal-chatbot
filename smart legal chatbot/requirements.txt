@@ -1,0 +1,13 @@
+# Core NyayMitra has ZERO mandatory external dependencies and runs on Python 3.9+ standard library.
+# The following optional packages enable Streamlit UI and Google GenAI SDK integration:
+
+# Optional: Google GenAI SDK
+google-genai>=0.1.1
+
+# Optional: Streamlit UI
+streamlit>=1.35.0
+
+# Optional: ASGI / FastAPI support
+fastapi>=0.110.0
+uvicorn>=0.29.0
+

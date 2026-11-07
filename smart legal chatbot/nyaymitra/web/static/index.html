@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NyayMitra • Smart Legal Assistant</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Top Navigation & Disclaimer Bar -->
+  <header class="top-bar">
+    <div class="brand">
+      <div class="logo-icon">⚖️</div>
+      <div>
+        <h1 class="brand-title">NyayMitra</h1>
+        <span class="brand-tagline">Smart AI Legal Assistant & Virtual Counsel</span>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <div class="control-group">
+        <label for="jurisdiction-select">Jurisdiction:</label>
+        <select id="jurisdiction-select" class="select-input">
+          <option value="Republic of India" selected>🇮🇳 Republic of India (Default)</option>
+          <option value="United Kingdom (England & Wales)">🇬🇧 United Kingdom (England & Wales)</option>
+          <option value="State of Delaware (USA)">🇺🇸 State of Delaware (USA)</option>
+          <option value="United States (Federal)">🇺🇸 United States (Federal)</option>
+        </select>
+      </div>
+
+      <div class="ai-status-badge" id="ai-status">
+        <span class="status-dot"></span>
+        <span id="ai-status-text">Local Knowledge Engine</span>
+      </div>
+
+      <button id="open-settings-btn" class="btn-icon" title="API Settings">⚙️</button>
+    </div>
+  </header>
+
+  <!-- Legal Disclaimer Banner -->
+  <div class="disclaimer-banner">
+    <span class="disclaimer-icon">⚠️</span>
+    <span class="disclaimer-text">
+      <strong>Disclaimer:</strong> This system is for informational and educational purposes only and does not constitute formal legal advice. Please consult a qualified advocate for professional legal representation.
+    </span>
+  </div>
+
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <nav class="nav-menu">
+        <button class="nav-tab active" data-tab="chat-tab">
+          <span class="tab-icon">💬</span> Legal Chatbot
+        </button>
+        <button class="nav-tab" data-tab="contract-tab">
+          <span class="tab-icon">🔍</span> Contract Risk Review
+        </button>
+        <button class="nav-tab" data-tab="irac-tab">
+          <span class="tab-icon">⚖️</span> IRAC Case Analyzer
+        </button>
+        <button class="nav-tab" data-tab="draft-tab">
+          <span class="tab-icon">📝</span> Document Drafter
+        </button>
+        <button class="nav-tab" data-tab="procedures-tab">
+          <span class="tab-icon">🧭</span> Procedural Guides
+        </button>
+        <button class="nav-tab" data-tab="converter-tab">
+          <span class="tab-icon">🔄</span> IPC ⇄ BNS Converter
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="info-card">
+          <div class="info-title">Statutory Frameworks</div>
+          <p>Bharatiya Nyaya Sanhita (BNS 2023), BNSS 2023, BSA 2023, Constitution of India, Consumer Protection Act 2019.</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- TAB 1: Legal Chatbot -->
+      <section id="chat-tab" class="tab-pane active">
+        <div class="chat-container">
+          <div class="chat-messages" id="chat-messages">
+            <div class="message assistant-message">
+              <div class="message-header">
+                <span class="avatar">⚖️</span>
+                <strong>NyayMitra Assistant</strong>
+              </div>
+              <div class="message-body">
+                <p>Welcome! I am <strong>NyayMitra</strong>, your legal assistant. How can I help you today?</p>
+                <ul>
+                  <li><strong>Legal Queries:</strong> Inquire about fundamental rights, bail provisions, consumer rights, or cyber laws.</li>
+                  <li><strong>New Criminal Laws:</strong> Ask how IPC sections map to Bharatiya Nyaya Sanhita (BNS 2023).</li>
+                  <li><strong>Procedures:</strong> Ask how to file an RTI, Zero-FIR, or Consumer Court complaint.</li>
+                </ul>
+                <p class="footnote"><em>Responses automatically incorporate strict jurisdiction declarations and legal disclaimers.</em></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-input-bar">
+            <textarea id="chat-input" placeholder="Type your legal query (e.g., 'What are my rights if arrested under Article 22?' or 'How does IPC 420 map to BNS?')..." rows="2"></textarea>
+            <button id="chat-send-btn" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: Contract Risk Review -->
+      <section id="contract-tab" class="tab-pane">
+        <div class="tool-view">
+          <div class="tool-header">
+            <h2>Contract & Clause Risk Review</h2>
+            <p>Paste an agreement or clause to generate a 4-part assessment: Executive Summary, High-Risk Clauses, Ambiguities & Red Flags, and Markup Revisions.</p>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label for="contract-role">Reviewing Perspective / Party Role:</label>
+              <select id="contract-role" class="select-input">
+                <option value="Client / Customer / Buyer">Client / Customer / Buyer</option>
+                <option value="Vendor / Service Provider / Seller">Vendor / Service Provider / Seller</option>
+                <option value="Employee / Contractor">Employee / Contractor</option>
+                <option value="Receiving Party (Confidentiality)">Receiving Party (Confidentiality)</option>
+                <option value="Disclosing Party (Confidentiality)">Disclosing Party (Confidentiality)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>&nbsp;</label>
+              <button id="load-sample-contract" class="btn btn-secondary">Load Sample Clause</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="contract-text">Contract / Clause Text:</label>
+            <textarea id="contract-text" rows="8" placeholder="Paste the indemnification, limitation of liability, non-compete, or entire agreement here..."></textarea>
+          </div>
+
+          <button id="run-contract-review-btn" class="btn btn-primary">Perform Risk Analysis</button>
+
+          <div id="contract-output-card" class="output-card hidden">
+            <div class="output-header">
+              <h3>Analysis Results</h3>
+              <button class="copy-btn" data-target="contract-output">Copy Report</button>
+            </div>
+            <div id="contract-output" class="markdown-body"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: IRAC Case Analyzer -->
+      <section id="irac-tab" class="tab-pane">
+        <div class="tool-view">
+          <div class="tool-header">
+            <h2>IRAC Legal Reasoning Analyzer</h2>
+            <p>Break down factual scenarios using Issue, Rule (statutes & precedents), Application (bilateral strengths & weaknesses), and Recommended Strategy.</p>
+          </div>
+
+          <div class="form-group">
+            <div class="flex-between">
+              <label for="irac-scenario">Factual Scenario / Chronology:</label>
+              <button id="load-sample-irac" class="btn-text">Load Sample Scenario</button>
+            </div>
+            <textarea id="irac-scenario" rows="7" placeholder="Describe the parties, facts, communications, and dispute circumstances..."></textarea>
+          </div>
+
+          <button id="run-irac-btn" class="btn btn-primary">Generate IRAC Assessment</button>
+
+          <div id="irac-output-card" class="output-card hidden">
+            <div class="output-header">
+              <h3>IRAC Analysis</h3>
+              <button class="copy-btn" data-target="irac-output">Copy Analysis</button>
+            </div>
+            <div id="irac-output" class="markdown-body"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: Document Drafter -->
+      <section id="draft-tab" class="tab-pane">
+        <div class="tool-view">
+          <div class="tool-header">
+            <h2>Formal Legal Document Drafter</h2>
+            <p>Generate professionally structured legal notices, agreements, and petitions with standardized boilerplate and clear placeholders.</p>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="draft-doc-type">Document Type:</label>
+              <select id="draft-doc-type" class="select-input">
+                <option value="Cease and Desist Letter">Cease and Desist Letter</option>
+                <option value="Mutual Non-Disclosure Agreement">Mutual Non-Disclosure Agreement (NDA)</option>
+                <option value="Settlement and Mutual Release Agreement">Settlement & Release Agreement</option>
+                <option value="Section 138 NI Act Cheque Bounce Notice">Section 138 NI Act Legal Notice (Cheque Bounce)</option>
+                <option value="Residential Lease / Rent Agreement">Residential Rent / Lease Agreement</option>
+                <option value="Consumer Dispute Petition">Consumer Court Dispute Petition (e-Daakhil)</option>
+                <option value="RTI Application (Section 6(1))">Right to Information (RTI) Application</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="draft-party-a">First Party / Sender:</label>
+              <input type="text" id="draft-party-a" placeholder="e.g. Rajesh Sharma / Acme Tech Pvt. Ltd." />
+            </div>
+
+            <div class="form-group">
+              <label for="draft-party-b">Second Party / Recipient:</label>
+              <input type="text" id="draft-party-b" placeholder="e.g. Apex Retail LLP / John Doe" />
+            </div>
+
+            <div class="form-group">
+              <label for="draft-purpose">Core Purpose / Dispute Subject:</label>
+              <input type="text" id="draft-purpose" placeholder="e.g. Dishonour of Cheque No. 445210 for INR 2,50,000 / Unauthorized use of trade secrets" />
+            </div>
+
+            <div class="form-group full-width">
+              <label for="draft-demands">Key Demands / Specific Terms:</label>
+              <textarea id="draft-demands" rows="3" placeholder="e.g. Demand payment of full consideration within 15 days; return all confidential documents and files..."></textarea>
+            </div>
+          </div>
+
+          <button id="run-draft-btn" class="btn btn-primary">Generate Legal Draft</button>
+
+          <div id="draft-output-card" class="output-card hidden">
+            <div class="output-header">
+              <h3>Draft Instrument</h3>
+              <div class="btn-group">
+                <button class="copy-btn" data-target="draft-output">Copy Text</button>
+                <button id="download-draft-btn" class="btn btn-secondary">Download .txt</button>
+              </div>
+            </div>
+            <div id="draft-output" class="markdown-body"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: Procedural Guides -->
+      <section id="procedures-tab" class="tab-pane">
+        <div class="tool-view">
+          <div class="tool-header">
+            <h2>Procedural Workflows & Step-by-Step Navigation</h2>
+            <p>Actionable statutory procedures for exercising citizen rights in India.</p>
+          </div>
+
+          <div class="procedure-buttons">
+            <button class="proc-btn active" data-proc="rti">📑 File RTI Application</button>
+            <button class="proc-btn" data-proc="fir">👮 Register FIR / Zero FIR (BNSS 173)</button>
+            <button class="proc-btn" data-proc="consumer_complaint">🛒 Consumer Forum (e-Daakhil)</button>
+            <button class="proc-btn" data-proc="cybercrime">💻 Report Cyber Financial Fraud (1930)</button>
+          </div>
+
+          <div id="procedure-content" class="output-card">
+            <div id="procedure-output" class="markdown-body">Loading procedure...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: IPC ⇄ BNS Converter -->
+      <section id="converter-tab" class="tab-pane">
+        <div class="tool-view">
+          <div class="tool-header">
+            <h2>New Criminal Laws Transition Calculator</h2>
+            <p>Cross-reference sections between the Indian Penal Code (IPC 1860) / CrPC (1973) and the Bharatiya Nyaya Sanhita (BNS 2023) / BNSS (2023).</p>
+          </div>
+
+          <div class="search-box">
+            <input type="text" id="bns-search-input" placeholder="Search by section number or keyword (e.g., 302, 420, 304A, 376, 498A, FIR, Bail)..." />
+            <button id="bns-search-btn" class="btn btn-primary">Lookup Section</button>
+          </div>
+
+          <div class="quick-chips">
+            <span>Popular Sections:</span>
+            <button class="chip" data-sec="420">IPC 420 (Cheating)</button>
+            <button class="chip" data-sec="302">IPC 302 (Murder)</button>
+            <button class="chip" data-sec="304a">IPC 304A (Hit-and-Run)</button>
+            <button class="chip" data-sec="154">CrPC 154 (FIR)</button>
+            <button class="chip" data-sec="498a">IPC 498A (Cruelty)</button>
+            <button class="chip" data-sec="124a">IPC 124A (Sedition)</button>
+          </div>
+
+          <div id="converter-output-card" class="output-card hidden">
+            <div id="converter-output" class="markdown-body"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Settings Modal (Gemini API Key) -->
+  <div id="settings-modal" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>NyayMitra Configuration</h3>
+        <button id="close-modal-btn" class="btn-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="gemini-key-input">Google Gemini API Key (Optional):</label>
+          <input type="password" id="gemini-key-input" placeholder="Enter AI Studio API Key (AIzaSy...)" />
+          <p class="field-hint">
+            NyayMitra operates fully offline using its built-in Indian law statutory knowledge base and templates. Providing a Gemini API key unlocks advanced generative reasoning for custom legal scenarios.
+          </p>
+        </div>
+        <div class="form-group">
+          <label>Status:</label>
+          <div id="modal-key-status" class="status-indicator">Checking status...</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="save-settings-btn" class="btn btn-primary">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
+
